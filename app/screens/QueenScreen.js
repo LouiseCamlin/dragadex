@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Image, StyleSheet, View, Button, Alert } from "react-native";
+import helpers from "../helpers/helperMethods";
 
 class QueenScreen extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class QueenScreen extends Component {
 
   getNameOptions() {
     const guessOptions = this.state.firstThree.slice(0);
+    const shuffledOptions = helpers.shuffle(guessOptions);
     return guessOptions.map((queen) => {
       return (
         <View style={styles.buttonContainer} key={queen.name}>

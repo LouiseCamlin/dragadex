@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Text, Button } from "react-native";
 import QueenScreen from "./QueenScreen";
+import helpers from "../helpers/helperMethods";
 
 class WelcomeScreen extends Component {
   constructor(props) {
@@ -28,14 +29,9 @@ class WelcomeScreen extends Component {
 
   randomiseQueens() {
     const queensArray = this.state.queens.slice(0);
-    for (let i = queensArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = queensArray[i];
-      queensArray[i] = queensArray[j];
-      queensArray[j] = temp;
-    }
+    const shuffledQueens = helpers.shuffle(queensArray);
     this.setState({
-      shuffledQueens: queensArray,
+      shuffledQueens,
       play: true,
     });
   }
