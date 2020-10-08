@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image, Text, Button } from "react-native";
+import QueenScreen from "./QueenScreen";
 
 class WelcomeScreen extends Component {
   constructor(props) {
@@ -39,6 +40,9 @@ class WelcomeScreen extends Component {
   }
 
   render() {
+    if (this.state.play === true) {
+      return <QueenScreen />;
+    }
     return (
       <View style={styles.background}>
         <View style={styles.logoContainer}>
