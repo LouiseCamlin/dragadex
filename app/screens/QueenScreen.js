@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Button } from "react-native";
+import { Image, StyleSheet, View, Button, Alert } from "react-native";
 
 class QueenScreen extends Component {
   constructor(props) {
@@ -24,11 +24,18 @@ class QueenScreen extends Component {
             color="black"
             style={styles.button}
             title={queen.name}
-            onPress={() => console.log(queen.name)}
+            onPress={() => this.checkIfCorrect(queen.name)}
           ></Button>
         </View>
       );
     });
+  }
+
+  checkIfCorrect(optionClicked) {
+    if (optionClicked === this.state.firstThree[1].name) {
+      return Alert.alert("Correct Answer!", "You know your drag queens!");
+    }
+    return Alert.alert("Wrong answer", "Try a different Queen");
   }
 
   handleHomePress() {
