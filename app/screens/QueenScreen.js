@@ -15,6 +15,22 @@ class QueenScreen extends Component {
     return queenImage;
   }
 
+  getNameOptions() {
+    const guessOptions = this.state.firstThree.slice(0);
+    return guessOptions.map((queen) => {
+      return (
+        <View style={styles.buttonContainer} key={queen.name}>
+          <Button
+            color="black"
+            style={styles.button}
+            title={queen.name}
+            onPress={() => console.log(queen.name)}
+          ></Button>
+        </View>
+      );
+    });
+  }
+
   handleHomePress() {
     this.props.resetPlayState();
   }
@@ -22,12 +38,12 @@ class QueenScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.closeIcon}></View>
         <Image
           resizeMode="contain"
           style={styles.image}
           source={{ uri: this.getQueenImage() }}
         />
+        {this.getNameOptions()}
         <View style={styles.homeButtonContainer}>
           <Button
             color="black"
@@ -42,7 +58,15 @@ class QueenScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    width: "100%",
+    height: 50,
+    backgroundColor: "#e5007c",
+    justifyContent: "center",
+    marginBottom: 5,
+  },
   container: {
+    margin: 0,
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
@@ -54,7 +78,7 @@ const styles = StyleSheet.create({
   },
   homeButtonContainer: {
     width: "100%",
-    height: 70,
+    height: 60,
     backgroundColor: "#4ecdc4",
   },
 });
