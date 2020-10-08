@@ -49,10 +49,26 @@ class QueenScreen extends Component {
   }
 
   checkIfCorrect(optionClicked) {
-    if (optionClicked === this.state.firstThree[1].name) {
-      return Alert.alert("Correct Answer!", "You know your drag queens!");
+    if (optionClicked === this.props.queens[this.state.randomIndex].name) {
+      return Alert.alert("Correct Answer!", "You know your drag queens!", [
+        {
+          text: "Next Queen",
+          onPress: () => this.getNextIndex(),
+        },
+      ]);
     }
-    return Alert.alert("Wrong answer", "Try a different Queen");
+    return Alert.alert("Wrong answer", "Better luck next time", [
+      {
+        text: "Next Queen",
+        onPress: () => this.getNextIndex(),
+      },
+    ]);
+    }
+
+  getNextIndex() {
+    this.setState({
+      randomIndex: Math.floor(Math.random() * (153 - 0)),
+    });
   }
 
   handleHomePress() {
