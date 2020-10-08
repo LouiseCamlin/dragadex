@@ -24,6 +24,20 @@ class WelcomeScreen extends Component {
       });
   }
 
+  randomiseQueens() {
+    const queensArray = this.state.queens.slice(0);
+    for (let i = queensArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = queensArray[i];
+      queensArray[i] = queensArray[j];
+      queensArray[j] = temp;
+    }
+    this.setState({
+      shuffledQueens: queensArray,
+      play: true,
+    });
+  }
+
   render() {
     return (
       <View style={styles.background}>
@@ -39,7 +53,7 @@ class WelcomeScreen extends Component {
             color="black"
             style={styles.button}
             title="Play!"
-            onPress={() => console.log(this.state.queens[0])}
+            onPress={() => this.randomiseQueens()}
           />
         </View>
         <View style={styles.registerButton}></View>
