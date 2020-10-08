@@ -9,6 +9,7 @@ class WelcomeScreen extends Component {
       queens: null,
       play: false,
     };
+    this.resetPlay = this.resetPlay.bind(this);
   }
 
   componentDidMount() {
@@ -39,9 +40,15 @@ class WelcomeScreen extends Component {
     });
   }
 
+  resetPlay() {
+    this.setState({
+      play: false,
+    });
+  }
+
   render() {
     if (this.state.play === true) {
-      return <QueenScreen />;
+      return <QueenScreen resetPlayState={this.resetPlay} />;
     }
     return (
       <View style={styles.background}>

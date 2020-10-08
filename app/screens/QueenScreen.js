@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, Button } from "react-native";
 
 function QueenScreen(props) {
   return (
@@ -10,22 +10,19 @@ function QueenScreen(props) {
         style={styles.image}
         source={require("../assets/Raven.jpg")}
       />
+      <View style={styles.homeButtonContainer}>
+        <Button
+          color="black"
+          style={styles.button}
+          title="Home"
+          onPress={() => props.resetPlayState()}
+        ></Button>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    color: "green",
-    backgroundColor: "black",
-  },
-  buttonContainer: {
-    width: "100%",
-    height: 50,
-    backgroundColor: "#e5007c",
-    justifyContent: "center",
-    margin: 5,
-  },
   container: {
     flex: 1,
     justifyContent: "flex-end",
