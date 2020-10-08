@@ -1,25 +1,40 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Button, Alert } from "react-native";
+import { Image, StyleSheet, View, Button, Alert, Text } from "react-native";
 import helpers from "../helpers/helperMethods";
 
 class QueenScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstThree: this.props.queens.slice(0, 3),
+      allQueens: this.props.queens,
+      randomIndex: this.getRandomIndex(),
     };
   }
 
+  getRandomIndex() {
+    return Math.floor(Math.random() * (153 - 0));
+  }
+
   getQueenImage() {
-    const queenToGuess = this.state.firstThree[1];
+    const queenToGuess = this.props.queens[this.state.randomIndex];
     const queenImage = Object.values(queenToGuess.image)[0];
     return queenImage;
   }
 
   getNameOptions() {
-    const guessOptions = this.state.firstThree.slice(0);
-    const shuffledOptions = helpers.shuffle(guessOptions);
-    return guessOptions.map((queen) => {
+    const wrongAnswer1 = this.props.queens[this.getRandomIndex()];
+    const wrongAnswer2 = this.props.queens[this.getRandomIndex()];
+    const correctAnswer = this.props.queens[this.state.randomIndex];
+    if (wrongAnswer1 === correctAnswer || wrongAnswer2 === correctAnswer) {
+      wrongAnswer1 = this.props.queens[this.getRandomIndex()];
+      wrongAnswer2 = this.props.queens[this.getRandomIndex()];
+    }
+
+    let answerArray = [];
+    answerArray.push(wrongAnswer1, wrongAnswer2, correctAnswer);
+
+    const shuffledOptions = helpers.shuffle(answerArray);
+    return shuffledOptions.map((queen) => {
       return (
         <View style={styles.buttonContainer} key={queen.name}>
           <Button

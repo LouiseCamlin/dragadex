@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, View, Image, Text, Button } from "react-native";
 import QueenScreen from "./QueenScreen";
 import helpers from "../helpers/helperMethods";
+import RulesScreen from "./RulesScreen";
 
 class WelcomeScreen extends Component {
   constructor(props) {
@@ -9,8 +10,11 @@ class WelcomeScreen extends Component {
     this.state = {
       queens: null,
       play: false,
+      score: 0,
+      viewRules: false,
     };
-    this.resetPlay = this.resetPlay.bind(this);
+    this.toggleRules = this.toggleRules.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
   }
 
   componentDidMount() {
@@ -27,29 +31,43 @@ class WelcomeScreen extends Component {
       });
   }
 
-  randomiseQueens() {
-    const queensArray = this.state.queens.slice(0);
-    const shuffledQueens = helpers.shuffle(queensArray);
-    this.setState({
-      shuffledQueens,
-      play: true,
-    });
+  togglePlay() {
+    console.log("play");
+    if (this.state.play === false) {
+      this.setState({
+        play: true,
+      });
+    } else {
+      this.setState({
+        play: false,
+      });
+    }
   }
 
-  resetPlay() {
-    this.setState({
-      play: false,
-    });
+  toggleRules() {
+    if (this.state.viewRules === false) {
+      this.setState({
+        viewRules: true,
+      });
+    } else {
+      this.setState({
+        viewRules: false,
+      });
+    }
   }
 
   render() {
     if (this.state.play === true) {
       return (
         <QueenScreen
-          queens={this.state.shuffledQueens}
-          resetPlayState={this.resetPlay}
+          queens={this.state.queens}
+          resetPlayState={this.togglePlay}
+          score={this.state.score}
         />
       );
+    }
+    if (this.state.viewRules === true) {
+      return <RulesScreen toggleRules={this.toggleRules} />;
     }
     return (
       <View style={styles.background}>
@@ -61,14 +79,15 @@ class WelcomeScreen extends Component {
           <Text style={styles.tagline}>Who's that Drag Queen</Text>
         </View>
         <View style={styles.randomiseButton}>
+          <Button color="black" title="Play!" onPress={this.togglePlay} />
+        </View>
+        <View style={styles.rulesButton}>
           <Button
             color="black"
-            style={styles.button}
-            title="Play!"
-            onPress={() => this.randomiseQueens()}
+            title="How To Play"
+            onPress={this.toggleRules}
           />
         </View>
-        <View style={styles.registerButton}></View>
       </View>
     );
   }
@@ -79,10 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-  },
-  button: {
-    color: "green",
-    backgroundColor: "black",
   },
   logoContainer: {
     position: "absolute",
@@ -99,7 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e5007c",
     justifyContent: "center",
   },
-  registerButton: {
+  rulesButton: {
     width: "100%",
     height: 70,
     backgroundColor: "#4ecdc4",
