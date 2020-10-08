@@ -48,7 +48,12 @@ class WelcomeScreen extends Component {
 
   render() {
     if (this.state.play === true) {
-      return <QueenScreen resetPlayState={this.resetPlay} />;
+      return (
+        <QueenScreen
+          queens={this.state.shuffledQueens}
+          resetPlayState={this.resetPlay}
+        />
+      );
     }
     return (
       <View style={styles.background}>
